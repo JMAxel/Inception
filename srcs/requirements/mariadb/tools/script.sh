@@ -3,10 +3,10 @@
 
 service mariadb start
 
-echo "CREATE DATABASE IF NOT EXISTS Inception ;" > hold.sql
-echo "CREATE USER IF NOT EXISTS 'jogomes-'@'%' IDENTIFIED BY '123456' ;" > hold.sql
-echo "GRANT ALL PRIVILEGES ON Inception.* TO 'jogomes-'@'%' ;" > hold.sql
-echo "ALTER USER 'root'@'localhost' IDENTIFIED BY '12345' ;" > hold.sql
+echo "CREATE DATABASE IF NOT EXISTS $DB_NAME ;" > hold.sql
+echo "CREATE USER IF NOT EXISTS '$USER'@'%' IDENTIFIED BY '$PWD' ;" > hold.sql
+echo "GRANT ALL PRIVILEGES ON $DB_NAME.* TO '$DB_NAME-'@'%' ;" > hold.sql
+echo "ALTER USER 'root'@'localhost' IDENTIFIED BY '1234' ;" > hold.sql
 echo "FLUSH PRIVILEGES ;" > hold.sql
 
 mariadb < hold.sql
