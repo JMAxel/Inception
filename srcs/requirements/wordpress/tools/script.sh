@@ -3,7 +3,6 @@
 #Create a directory needed to config nginx and wordpress
 mkdir /var/www/
 mkdir /var/www/html
-
 cd /var/www/html
 
 #Make sure the directory is empty
@@ -40,11 +39,12 @@ wp core install --url=$DOMAIN --title=$WP_TITLE --admin_user=$WP_ADMIN_USR --adm
 wp user create $USER $EMAIL --role=author --user_pass=$PWD --allow-root
 
 #Install the Astra theme and activates it
-#--activate = Tells WP-CLI to make it main theme for the site.
+#--activate = Tells WP-CLI to make it main theme for the site
 wp theme install astra --activate --allow-root
 
-#Install redis-cache plugin
-wp plugin install redis-cache --activate --allow-root
+#Create directory which PHP-FPM uses to store Unix domain sockets
+mkdir /run/php
 
-#Makes sure it's all updated
-wp plugin update --all --allow-root
+#Starts PHP-FPM
+#-F = Tells to PHP-FPM works on the foreground, not the background
+/usr/sbin/php-fpm7.4 -F
